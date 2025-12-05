@@ -9,29 +9,29 @@ Servo gripperServo;   // Clamp open/close
 
 // ==================== PIN ASSIGNMENTS ====================
 // Change these to match your ESP/Arduino wiring
-const int BASE_PIN     = D1;   // GPIO5  (example)
-const int SHOULDER_PIN = D2;   // GPIO4
-const int ELBOW_PIN    = D3;   // GPIO0
-const int WRIST_PIN    = D4;   // GPIO2
-const int GRIPPER_PIN  = D5;   // GPIO14
+const int BASE_PIN     = 5;   // GPIO5  (example)
+const int SHOULDER_PIN = 4;   // GPIO4
+const int ELBOW_PIN    = 12;  // GPIO12
+const int WRIST_PIN    = 14;  // GPIO14
+const int GRIPPER_PIN  = 16;  // GPIO16
 
 // ==================== ANGLE LIMITS (TUNE) ====================
 // Adjust all these based on your physical arm limits
-const int BASE_MIN     = 10;
-const int BASE_MAX     = 170;
+const int BASE_MIN     = 0;
+const int BASE_MAX     = 180;
 
-const int SHOULDER_MIN = 20;
-const int SHOULDER_MAX = 160;
+const int SHOULDER_MIN = 0;
+const int SHOULDER_MAX = 180;
 
-const int ELBOW_MIN    = 10;
-const int ELBOW_MAX    = 170;
+const int ELBOW_MIN    = 0;
+const int ELBOW_MAX    = 180;
 
-const int WRIST_MIN    = 10;
-const int WRIST_MAX    = 170;
+const int WRIST_MIN    = 0;
+const int WRIST_MAX    = 180;
 
 // Gripper open/close angles (tune these for your clamp)
-const int GRIPPER_OPEN  = 90;   // "open" clamp angle
-const int GRIPPER_CLOSE = 40;   // "closed" clamp angle
+const int GRIPPER_OPEN  = 0;   // "open" clamp angle
+const int GRIPPER_CLOSE = 100;     // "closed" clamp angle
 
 
 // ==================== POSE STRUCT ====================
@@ -59,41 +59,41 @@ int max5(int a, int b, int c, int d, int e) {
 
 // Safe home pose – tune these first!
 Pose homePose = {
-  90,   // base
-  90,   // shoulder
-  90,   // elbow
-  90,   // wrist
+  180,   // base
+  0,   // shoulder
+  100,   // elbow
+  0,   // wrist
   GRIPPER_OPEN
 };
 
 // ---------- POSES FOR TASK 1 (cube) ----------
 // !!! PLACEHOLDER ANGLES – CHANGE AFTER TESTING !!!
-Pose t1_aboveObj = { 60, 70, 110, 80, GRIPPER_OPEN };
-Pose t1_grabObj  = { 60, 80, 120, 80, GRIPPER_OPEN };
-Pose t1_liftObj  = { 60, 60, 100, 80, GRIPPER_CLOSE };
-Pose t1_aboveBox = {100, 65, 105, 80, GRIPPER_CLOSE };
-Pose t1_release  = {100, 65, 105, 80, GRIPPER_OPEN  };
+Pose t1_aboveObj = { 180, 0,   0,   0,   GRIPPER_OPEN };
+Pose t1_grabObj  = { 180, 80,  120, 80,  GRIPPER_OPEN };
+Pose t1_liftObj  = { 180, 60,  100, 80,  GRIPPER_CLOSE };
+Pose t1_aboveBox = { 180, 65,  105, 80,  GRIPPER_CLOSE };
+Pose t1_release  = { 180, 65,  105, 80,  GRIPPER_OPEN  };
 
 // ---------- POSES FOR TASK 2 (cylinder) ----------
-Pose t2_aboveObj = { 40, 75, 110, 80, GRIPPER_OPEN };
-Pose t2_grabObj  = { 40, 85, 120, 80, GRIPPER_OPEN };
-Pose t2_liftObj  = { 40, 65, 100, 80, GRIPPER_CLOSE };
-Pose t2_aboveBox = {120, 60, 100, 80, GRIPPER_CLOSE };
-Pose t2_release  = {120, 60, 100, 80, GRIPPER_OPEN  };
+Pose t2_aboveObj = { 40,  75, 110, 80, GRIPPER_OPEN };
+Pose t2_grabObj  = { 40,  85, 120, 80, GRIPPER_OPEN };
+Pose t2_liftObj  = { 40,  65, 100, 80, GRIPPER_CLOSE };
+Pose t2_aboveBox = { 120, 60, 100, 80, GRIPPER_CLOSE };
+Pose t2_release  = { 120, 60, 100, 80, GRIPPER_OPEN  };
 
 // ---------- POSES FOR TASK 3 (hat) ----------
-Pose t3_aboveObj = { 70, 70, 110, 80, GRIPPER_OPEN };
-Pose t3_grabObj  = { 70, 80, 120, 80, GRIPPER_OPEN };
-Pose t3_liftObj  = { 70, 60, 100, 80, GRIPPER_CLOSE };
-Pose t3_aboveBox = {140, 60, 100, 80, GRIPPER_CLOSE };
-Pose t3_release  = {140, 60, 100, 80, GRIPPER_OPEN  };
+Pose t3_aboveObj = { 70,  70, 110, 80, GRIPPER_OPEN };
+Pose t3_grabObj  = { 70,  80, 120, 80, GRIPPER_OPEN };
+Pose t3_liftObj  = { 70,  60, 100, 80, GRIPPER_CLOSE };
+Pose t3_aboveBox = { 140, 60, 100, 80, GRIPPER_CLOSE };
+Pose t3_release  = { 140, 60, 100, 80, GRIPPER_OPEN  };
 
 // ---------- POSES FOR TASK 4 (boat) ----------
-Pose t4_aboveObj = { 85, 70, 110, 80, GRIPPER_OPEN };
-Pose t4_grabObj  = { 85, 80, 120, 80, GRIPPER_OPEN };
-Pose t4_liftObj  = { 85, 60, 100, 80, GRIPPER_CLOSE };
-Pose t4_aboveBox = {150, 60, 100, 80, GRIPPER_CLOSE };
-Pose t4_release  = {150, 60, 100, 80, GRIPPER_OPEN  };
+Pose t4_aboveObj = { 85,  70, 110, 80, GRIPPER_OPEN };
+Pose t4_grabObj  = { 85,  80, 120, 80, GRIPPER_OPEN };
+Pose t4_liftObj  = { 85,  60, 100, 80, GRIPPER_CLOSE };
+Pose t4_aboveBox = { 150, 60, 100, 80, GRIPPER_CLOSE };
+Pose t4_release  = { 150, 60, 100, 80, GRIPPER_OPEN  };
 
 
 // ==================== GLOBAL STATE ====================
@@ -191,69 +191,112 @@ void resetArm() {
 
 // ---------- TASK 1: e.g. cube ----------
 void task1() {
-  Serial.println("Running Task 1 (cube)...");
+  // Serial.println("Running Task 1 (cube)...");
 
-  moveToPose(t1_aboveObj, 10, 3);   // go above object
-  moveToPose(t1_grabObj,  15, 2);   // lower slowly
-  closeGripper(10);                 // clamp
-  moveToPose(t1_liftObj,  10, 2);   // lift
-  moveToPose(t1_aboveBox, 10, 3);   // to box
-  moveToPose(t1_release,  15, 2);   // lower into box
-  openGripper(10);                  // release
-  moveToPose(homePose,    10, 3);   // back home
+  // moveToPose(t1_aboveObj, 10, 3);   // go above object
+  // moveToPose(t1_grabObj,  15, 2);   // lower slowly
+  // closeGripper(10);                 // clamp
+  // moveToPose(t1_liftObj,  10, 2);   // lift
+  // moveToPose(t1_aboveBox, 10, 3);   // to box
+  // moveToPose(t1_release,  15, 2);   // lower into box
+  // openGripper(10);                  // release
+  // moveToPose(homePose,    10, 3);   // back home
 
-  Serial.println("Task 1 done.");
+  // Serial.println("Task 1 done.");
 }
 
 
 // ---------- TASK 2: cylinder ----------
 void task2() {
-  Serial.println("Running Task 2 (cylinder)...");
+  // Serial.println("Running Task 2 (cylinder)...");
 
-  moveToPose(t2_aboveObj, 10, 3);
-  moveToPose(t2_grabObj,  15, 2);
-  closeGripper(10);
-  moveToPose(t2_liftObj,  10, 2);
-  moveToPose(t2_aboveBox, 10, 3);
-  moveToPose(t2_release,  15, 2);
-  openGripper(10);
-  moveToPose(homePose,    10, 3);
+  // moveToPose(t2_aboveObj, 10, 3);
+  // moveToPose(t2_grabObj,  15, 2);
+  // closeGripper(10);
+  // moveToPose(t2_liftObj,  10, 2);
+  // moveToPose(t2_aboveBox, 10, 3);
+  // moveToPose(t2_release,  15, 2);
+  // openGripper(10);
+  // moveToPose(homePose,    10, 3);
 
-  Serial.println("Task 2 done.");
+  // Serial.println("Task 2 done.");
 }
 
 
 // ---------- TASK 3: hat ----------
 void task3() {
-  Serial.println("Running Task 3 (hat)...");
+  // Serial.println("Running Task 3 (hat)...");
 
-  moveToPose(t3_aboveObj, 10, 3);
-  moveToPose(t3_grabObj,  15, 2);
-  closeGripper(10);
-  moveToPose(t3_liftObj,  10, 2);
-  moveToPose(t3_aboveBox, 10, 3);
-  moveToPose(t3_release,  15, 2);
-  openGripper(10);
-  moveToPose(homePose,    10, 3);
+  // moveToPose(t3_aboveObj, 10, 3);
+  // moveToPose(t3_grabObj,  15, 2);
+  // closeGripper(10);
+  // moveToPose(t3_liftObj,  10, 2);
+  // moveToPose(t3_aboveBox, 10, 3);
+  // moveToPose(t3_release,  15, 2);
+  // openGripper(10);
+  // moveToPose(homePose,    10, 3);
 
-  Serial.println("Task 3 done.");
+  // Serial.println("Task 3 done.");
 }
 
 
 // ---------- TASK 4: boat ----------
 void task4() {
-  Serial.println("Running Task 4 (boat)...");
+  // Serial.println("Running Task 4 (boat)...");
 
-  moveToPose(t4_aboveObj, 10, 3);
-  moveToPose(t4_grabObj,  15, 2);
-  closeGripper(10);
-  moveToPose(t4_liftObj,  10, 2);
-  moveToPose(t4_aboveBox, 10, 3);
-  moveToPose(t4_release,  15, 2);
-  openGripper(10);
-  moveToPose(homePose,    10, 3);
+  // moveToPose(t4_aboveObj, 10, 3);
+  // moveToPose(t4_grabObj,  15, 2);
+  // closeGripper(10);
+  // moveToPose(t4_liftObj,  10, 2);
+  // moveToPose(t4_aboveBox, 10, 3);
+  // moveToPose(t4_release,  15, 2);
+  // openGripper(10);
+  // moveToPose(homePose,    10, 3);
 
-  Serial.println("Task 4 done.");
+  // Serial.println("Task 4 done.");
+}
+
+
+// ==================== SERVO DEBUG MODE ====================
+// Command format (type in Serial Monitor):
+//   d base shoulder elbow wrist gripper
+// Example:
+//   d 90 80 120 45 10
+
+void debugMove(String line) {
+  // line currently still contains the 'd' we read in loop()
+  // remove the first char ('d') and trim the rest
+  if (line.length() > 0 && (line[0] == 'd' || line[0] == 'D')) {
+    line.remove(0, 1);
+  }
+  line.trim();
+
+  int b, s, e, w, g;
+  int parsed = sscanf(line.c_str(), "%d %d %d %d %d", &b, &s, &e, &w, &g);
+
+  if (parsed != 5) {
+    Serial.println("Format error! Use: d base shoulder elbow wrist gripper");
+    Serial.println("Example: d 90 120 45 10 20");
+    return;
+  }
+
+  Pose target = {
+    b, // base
+    s, // shoulder
+    e, // elbow
+    w, // wrist
+    g  // gripper
+  };
+
+  Serial.println("DEBUG MOVE →");
+  Serial.print("  Base: ");     Serial.println(b);
+  Serial.print("  Shoulder: "); Serial.println(s);
+  Serial.print("  Elbow: ");    Serial.println(e);
+  Serial.print("  Wrist: ");    Serial.println(w);
+  Serial.print("  Gripper: ");  Serial.println(g);
+
+  // slightly faster & smooth
+  moveToPose(target, 8, 2);
 }
 
 
@@ -278,6 +321,7 @@ void setup() {
   Serial.println("3 = Task 3 (hat)");
   Serial.println("4 = Task 4 (boat)");
   Serial.println("r = reset to home");
+  Serial.println("d = debug: enter 5 servo angles (d base shoulder elbow wrist gripper)");
 }
 
 void loop() {
@@ -309,11 +353,21 @@ void loop() {
       case 'R':
         resetArm();
         break;
+
+      case 'd':
+      case 'D': {
+        // read the rest of the line after 'd'
+        String line = "d";
+        line += Serial.readStringUntil('\n');
+        debugMove(line);
+        break;
+      }
+
       default:
-        Serial.println("Unknown command. Use 1,2,3,4,r.");
+        Serial.println("Unknown command. Use 1,2,3,4,r,d.");
         break;
     }
 
-    Serial.println("Ready for next command: 1,2,3,4,r");
+    Serial.println("Ready for next command: 1,2,3,4,r,d");
   }
 }
